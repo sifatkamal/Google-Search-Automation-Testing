@@ -10,8 +10,6 @@ from openpyxl import load_workbook
 from datetime import datetime
 import time
 
-
-
 class Search:
 
     def __init__(self, driver_path = r"C:/SeleniumDrivers", teardown = False):
@@ -90,21 +88,13 @@ class Search:
 
             shortest = min(temp, key=len)
 
-            print(longest)
+            sheet['D'+str(count)] = longest
 
-            print(shortest)
-
-            longest_cellno = 'D'+str(count)
-
-            shortest_cellno = 'E'+str(count)
-
-            sheet[longest_cellno] = longest
-
-            sheet[shortest_cellno] = shortest
+            sheet['E'+str(count)] = shortest
             
             count+=1
 
         wb.save(file_path)
-        
+
         self.driver.close()
 
