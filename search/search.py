@@ -6,10 +6,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import NoSuchElementException
-import time
-
 from openpyxl import load_workbook
 from datetime import datetime
+import time
 
 
 
@@ -43,16 +42,69 @@ class Search:
 
         self.driver.get(const.BASE_URL)
 
-        self.driver.find_element(By.CSS_SELECTOR, "textarea").send_keys("cricket")
-
-        time.sleep(2)
-
         file_path = r"F:\5. Activities\fourbeats\search\excel.xlsx"
         
         wb = load_workbook(file_path)
 
         day = datetime.today().strftime("%A")
+            
+        sheet = wb[day]
 
+        data = []
+
+        count = 3
+
+        self.driver.find_element(By.CSS_SELECTOR, "div[id='SIvCob'] a").click()
+
+        for row in range(3, 13):
+    
+            cell_value = sheet[f'C{row}'].value
+
+            data.append(cell_value)
+
+        for i in data:
+
+            temp = []
+
+            self.driver.find_element(By.CSS_SELECTOR, "textarea").send_keys(i)
+
+            time.sleep(2)
+
+            values = self.driver.find_elements(By.CSS_SELECTOR, "li.sbct")
+
+            for j in values:
+
+                if j.text != "\n" and j.text != " " and j.text != "":
+
+                    if j.is_displayed:
+
+                        value = j.text.split("\n", 1)
+
+                        temp.append(value[0])
+
+            time.sleep(2)
+
+            self.driver.find_element(By.CSS_SELECTOR, "textarea").clear()
+
+            longest = max(temp, key=len)
+
+            shortest = min(temp, key=len)
+
+            print(longest)
+
+            print(shortest)
+
+            longest_cellno = 'D'+str(count)
+
+            shortest_cellno = 'E'+str(count)
+
+            sheet[longest_cellno] = longest
+
+            sheet[shortest_cellno] = shortest
+            
+            count+=1
+
+        wb.save(file_path)
         
-
+        self.driver.close()
 
