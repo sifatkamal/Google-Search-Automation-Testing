@@ -28,6 +28,13 @@ pip install selenium
 ```
 pip install openpyxl
 ```
+- Run the script
+```
+python run.py
+```
+
+- Wait for the process to finish
+- Check the Excel sheet according to the day
 
 ## Website URL
 - https://www.google.com/
