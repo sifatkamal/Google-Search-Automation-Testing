@@ -8,6 +8,9 @@ from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import NoSuchElementException
 import time
 
+from openpyxl import load_workbook
+from datetime import datetime
+
 
 
 class Search:
@@ -38,14 +41,18 @@ class Search:
 
     def land_first_page(self):
 
-        self.listt = []
-
         self.driver.get(const.BASE_URL)
 
         self.driver.find_element(By.CSS_SELECTOR, "textarea").send_keys("cricket")
 
         time.sleep(2)
 
-        values = self.driver.find
+        file_path = r"F:\5. Activities\fourbeats\search\excel.xlsx"
+        
+        wb = load_workbook(file_path)
+
+        day = datetime.today().strftime("%A")
+
+        
 
 
