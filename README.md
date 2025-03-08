@@ -28,6 +28,7 @@ pip install selenium
 ```
 pip install openpyxl
 ```
+- Change the web driver path and excel file path according to yours
 - Run the script
 ```
 python run.py
