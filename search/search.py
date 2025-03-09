@@ -12,7 +12,7 @@ import time
 
 class Search:
 
-    def __init__(self, driver_path = r"C:/SeleniumDrivers", teardown = False):
+    def __init__(self, driver_path = r"C:/SeleniumDrivers", teardown = True):
 
         self.driver_path = driver_path
         self.teardown = teardown
@@ -36,11 +36,11 @@ class Search:
             
             self.driver.quit()
 
-    def land_first_page(self):
+    def search_page(self):
 
         self.driver.get(const.BASE_URL)
 
-        file_path = r"F:\5. Activities\fourbeats\search\excel.xlsx"
+        file_path = const.FILE_PATH        
         
         wb = load_workbook(file_path)
 
@@ -95,6 +95,3 @@ class Search:
             count+=1
 
         wb.save(file_path)
-
-        self.driver.close()
-
